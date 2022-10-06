@@ -4,7 +4,15 @@
 
 /* ajout des classes que tailwind n'affiche pas directement à cause des mes variables qui sont dynamique et donc ne sont pas prise en compte à la création des classes créer dans le ThèmeContext.js */
 
-#container-card:hover#container-card > div > img {
+#container-card-in:hover#container-card-in > * > img {
   transform: scale(1.2);
   transition: 0.3s ease-in-out all;
+}
+#container-card-out:hover#container-card-out > * > img {
+  transform: scale(0.8);
+  transition: 0.3s ease-in-out all;
+}
+
+.swiper-button-next::after, .swiper-button-prev::after {
+  color: #000!important;
 }

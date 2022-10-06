@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
+import AllMeal from "../components/AllMeal";
+import SwiperIngredient from "../components/SwiperIngredient";
+import Categorys from "../components/Categorys";
 
 const Home = () => {
   const [mealsData, setMealsData] = useState([]);
@@ -8,6 +11,8 @@ const Home = () => {
   const [inputSearch, setInputSearch] = useState("");
   const [researchBtn, setResearchBtn] = useState(true);
 
+ 
+  
   useEffect(() => {
     axios
       .get(
@@ -32,26 +37,26 @@ const Home = () => {
 
   return (
     <>
-      <header className="w-full relative ">
+      <header >
         <Navbar />
-        <div className="pt-20">
-          <div className="px-[5%] max-w-[600px]">
-            <h1 className="text-3xl font-bold text-center gap-2.5 w-full uppercase">
+        <div className="pt-20 w-full max-w-7xl mx-auto relative ">
+          <div className="px-[5%] ">
+            <h1 className="text-3xl font-bold text-center w-full uppercase">
               500g <br />
-              Recettes, plats & ingrédients !
+              Recettes, ingrédients & santé !
             </h1>
-            <h2 className="mt-20 mb-4 underline underline-offset-4 font-bold">
+            <h2 className="mt-20 mb-4 underline underline-offset-4 font-bold text-3xl">
               Trouvez le meilleur pour vous !
             </h2>
 
             <form
               action={`/recherche/${inputSearch}`}
-              className="bg-white rounded-md shadow-md p-2.5 relative mb-5 flex justify-between"
+              className="bg-white rounded-md shadow-md p-2.5 relative mb-10 flex justify-between max-w-[600px]"
             >
               <input
                 className="p-2.5 w-full outline-none"
                 type="text"
-                placeholder="Tapez le nom d'un aliment (en anglais)"
+                placeholder="Tapez le nom d'une recette (en anglais)"
                 onChange={(e) => setInputSearch(e.target.value)}
                 required
                 autoComplete="off"
@@ -64,20 +69,28 @@ const Home = () => {
                 )}
               </button>
             </form>
-            <form action="/random">
-              <button className="bg-vert rounded-md shadow-md p-2.5 relative w-max-min ">
-                Recette random
+            <form action="/random" className="flex items-center gap-5">
+              <button className="bg-vert rounded-full shadow-md p-2.5 relative w-11 shadow-md">
+              <i className="fa-solid fa-magnifying-glass"></i>
               </button>
+              <p className="sm:text-2xl">
+                <i className="fa-solid fa-arrow-left mr-2.5"></i> Recette random
+                juste ici
+              </p>
             </form>
           </div>
           <img
-            className=" opacity-50 -z-10 absolute top-52 -right-10 w-full max-w-[600px] rounded-[50px]"
+            className=" opacity-50 -z-10 absolute top-52 -right-10 w-full max-w-[600px] rounded-[50px] shadow-md"
             src={mealRandom[0] && mealRandom[0].strMealThumb}
             alt={"plats de " + mealRandom.strMeal}
           />
         </div>
       </header>
-      <main></main>
+      <main>
+        <AllMeal />
+        <SwiperIngredient />
+        <Categorys/>
+      </main>
       <footer></footer>
     </>
   );

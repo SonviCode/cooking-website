@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="flex px-[5%] py-5 justify-between fixed w-full backdrop-blur-md">
+    <nav className="flex px-[5%] py-5 justify-between fixed max-w-[100vw] w-[100vw] backdrop-blur-md z-50">
       <Link to={"/"}>
         <p className="flex">
           <svg
@@ -28,13 +28,10 @@ const Navbar = () => {
 
       <ul className="flex gap-20">
         <li>
-          <a href="#plats">Plats</a>
+          <Link to={"/ingredients"}>Ingrédients</Link>
         </li>
         <li>
           <a href="#recette">Recette</a>
-        </li>
-        <li>
-          <a href="#categories">Catégories</a>
         </li>
       </ul>
     </nav>

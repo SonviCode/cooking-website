@@ -10,12 +10,12 @@ const Card = ({ meal }) => {
       key={uuidv4()}
     >
       <div
-        id="container-card"
+        id="container-card-in"
         className="flex xs:flex-row flex-col items-center md:pl-40 mb-10 max-w-2xl "
       >
         <div className="w-[400px] overflow-hidden ">
           <img
-            className="w-full h-full rounded-lg"
+            className="w-full h-full rounded-lg duration-300"
             src={meal.strMealThumb}
             alt={meal.strMeal}
           />

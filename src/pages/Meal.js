@@ -10,13 +10,37 @@ const Meal = () => {
 
   const [dataMeal, setDataMeal] = useState([]);
 
+  let handleParams;
+  switch (params.slug) {
+    case "Jam-Roly-Poly":
+      handleParams = params.slug.replace("-", " ");
+      break;
+    case "Home-made-Mandazi":
+    case "Chick-Fil-A-Sandwich":
+    case "Three-cheese-souffles":
+      handleParams =
+        params.slug.substring(0, params.slug.lastIndexOf("-")) +
+        " " +
+        params.slug.substring(params.slug.lastIndexOf("-") + 1);
+      break;
+    case "Piri-piri-chicken-and-slaw":
+    case "Soy-Glazed-Meatloaves-with-Wasabi-Mashed-Potatoes-&-Roasted-Carrots":
+      handleParams = params.slug.replaceAll("-", " ").replace(" ", "-");
+      break;
+    case "Vietnamese-Grilled-Pork-(bun-thit-nuong)":
+    case "Portuguese-prego-with-green-piri-piri":
+      handleParams = params.slug.replaceAll("-", " ").split(" ", 3).join(" ");
+
+      break;
+
+    default:
+      handleParams = params.slug.replaceAll("-", " ");
+  }
+
   useEffect(() => {
     axios
       .get(
-        `https://www.themealdb.com/api/json/v1/1/search.php?s=${params.slug.replaceAll(
-          "-",
-          " "
-        )}`
+        `https://www.themealdb.com/api/json/v1/1/search.php?s=${handleParams}`
       )
       .then((res) => setDataMeal(res.data.meals));
   }, []);
@@ -73,6 +97,17 @@ const Meal = () => {
       dataMeal[0].strMeasure20,
     ];
   }
+  let number = "";
+  let Measures;
+  let Ingredients;
+
+  for (let i = 1; i < 20; i++) {
+    number =+ i;
+    Ingredients = dataMeal[0] && dataMeal[0][`strIngredient${number}`]
+    Measures = dataMeal[0] && dataMeal[0][`strMeasure${number}`]
+    console.log(Ingredients);
+    console.log(Measures);
+  }
 
   return (
     <>
@@ -85,6 +120,7 @@ const Meal = () => {
             <h1 className="text-4xl font-extrabold text-center gap-2.5 w-full uppercase mb-10">
               {dataMeal[0] && dataMeal[0].strMeal}
             </h1>
+
             <div className="flex flex-col sm:flex-row justify-center items-center gap-10 mb-20">
               <img
                 className="rounded-[50px] flex-1 max-w-[400px] w-full"
@@ -125,12 +161,16 @@ const Meal = () => {
             <h2 className="text-2xl font-extrabold uppercase mb-10">
               Ingrédients :{" "}
             </h2>
-            <div className="grid grid-cols-auto-fit gap-10 max-w-4xl mx-auto mb-20">
+            <p>{Measures}</p>
+            <div className="grid grid-cols-auto-fit100 gap-10 max-w-4xl mx-auto mb-20">
               {dataMeal[0] &&
                 ingredient.map(
                   (el) =>
                     el && (
-                      <div className="flex flex-col justify-center items-center p-5 text-center">
+                      <div
+                        className="flex flex-col justify-center items-center p-5 text-center hover:-translate-y-5 ease-in duration-300"
+                        key={uuidv4()}
+                      >
                         <Link
                           to={`/ingredient/${el.replace(/\s+/g, "-").trim()}`}
                           state={el}
@@ -144,10 +184,10 @@ const Meal = () => {
                           <p key={uuidv4()} className="font-bold">
                             {el}
                           </p>
+                          <p key={uuidv4()}>
+                            {measure[`${ingredient.indexOf(el)}`]}
+                          </p>
                         </Link>
-                        <p key={uuidv4()}>
-                          {measure[`${ingredient.indexOf(el)}`]}
-                        </p>
                       </div>
                     )
                 )}
@@ -157,8 +197,7 @@ const Meal = () => {
           <div className="flex items-center justidy-center flex-col gap-10 mb-20">
             <h3 className="uppercase font-bold text-2xl ">Vidéo :</h3>
             <iframe
-              width="560"
-              height="315"
+              className="min-w-[300px] h-[315px] w-full max-w-[600px]"
               src={`https://www.youtube.com/embed/${
                 dataMeal[0] && dataMeal[0].strYoutube.slice(-11)
               }`}
