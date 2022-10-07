@@ -1,9 +1,21 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const [mealsData, setMealsData] = useState([]);
+  const [inputSearch, setInputSearch] = useState("");
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://www.themealdb.com/api/json/v1/1/search.php?s=" + inputSearch
+      )
+      .then((res) => setMealsData(res.data.meals));
+  }, [inputSearch]);
+
   return (
-    <nav className="flex px-[5%] py-5 justify-between fixed max-w-[100vw] w-[100vw] backdrop-blur-md z-50">
+    <nav className="flex px-[5%] py-2.5 justify-between items-center fixed max-w-[100vw] w-[100vw] backdrop-blur-md z-50">
       <Link to={"/"}>
         <p className="flex">
           <svg
@@ -26,12 +38,30 @@ const Navbar = () => {
         </p>
       </Link>
 
-      <ul className="flex gap-20">
+      <ul className="flex gap-10 relative items-center">
+        <li >
+          <form
+            action={`/recherche/${inputSearch}`}
+            className="bg-white rounded-md p-1 shadow-md  relative  flex justify-between max-w-[600px] "
+          >
+            <input
+              className=" w-full outline-none truncate"
+              type="text"
+              placeholder="Tapez le nom d'une recette (en anglais)"
+              onChange={(e) => setInputSearch(e.target.value)}
+              required
+              autoComplete="off"
+            />
+            <button className=" p-1 rounded-md bg-vert">
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+        </li>
         <li>
           <Link to={"/ingredients"}>Ingrédients</Link>
         </li>
         <li>
-          <a href="#recette">Recette</a>
+          <Link to={"/random"}>Random</Link>
         </li>
       </ul>
     </nav>

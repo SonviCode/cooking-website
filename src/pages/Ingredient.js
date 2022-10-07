@@ -4,25 +4,21 @@ import { useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 const Ingredient = () => {
   const location = useLocation();
-
   let ingredient = location.state;
 
   const [listMeal, setListMeal] = useState([]);
 
   useEffect(() => {
     axios
-      .get(
-        `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient.replaceAll(
-          "-",
-          " "
-        )}`
-      )
+      .get(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`)
       .then((res) => setListMeal(res.data.meals));
   }, []);
+
 
   return (
     <>
@@ -47,10 +43,10 @@ const Ingredient = () => {
             </h2>
             <h3 className="uppercase mb-10">
               Nombres de recettes réalisables avec l'ingrédient {ingredient} :{" "}
-              {listMeal.length}
+              {listMeal ? listMeal.length : "0"}
             </h3>
             <div className="grid grid-cols-auto-fit200 gap-10 max-w-7xl mx-auto mb-20 justify-items-center">
-              {listMeal &&
+              {listMeal ? (
                 listMeal.map((el) => (
                   <>
                     <Link
@@ -73,11 +69,26 @@ const Ingredient = () => {
                       </div>
                     </Link>
                   </>
-                ))}
+                ))
+              ) : (
+                <div className="text-center">
+                  <p className="mb-5">
+                    Désolé aucune recette n'est disponible avec cette
+                    ingrédient...
+                  </p>
+                  <Link
+                    to="/"
+                    className="bg-vert rounded-lg shadow-md p-2.5 relative w-11 shadow-md hover:bg-white ease-in duration-300"
+                  >
+                    Retour à l'accueil
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </section>
       </main>
+      <Footer/>
     </>
   );
 };

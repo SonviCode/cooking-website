@@ -19,12 +19,10 @@ const SwiperIngredient = () => {
 
   let numberRandom = Math.floor(Math.random() * 559);
 
-  console.log(numberRandom);
-
   return (
     <section>
       <div className="px-[5%] pt-20 max-w-7xl mx-auto mb-20">
-        <h2 className="text-xl uppercase">Voici quelques ingrédients :</h2>
+        <h2 className="text-xl uppercase">Quelques ingrédients au hasard :</h2>
 
         <div className="flex mb-20 ">
           <Swiper

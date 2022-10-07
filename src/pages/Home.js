@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-import AllMeal from "../components/AllMeal";
 import SwiperIngredient from "../components/SwiperIngredient";
 import Categorys from "../components/Categorys";
+import Area from "../components/Areas";
+import Areas from "../components/Areas";
+import Footer from "../components/Footer";
 
 const Home = () => {
   const [mealsData, setMealsData] = useState([]);
-  const [mealRandom, setMealRandom] = useState([]);
   const [inputSearch, setInputSearch] = useState("");
+  const [mealRandom, setMealRandom] = useState([]);
   const [researchBtn, setResearchBtn] = useState(true);
 
- 
-  
   useEffect(() => {
     axios
       .get(
@@ -39,7 +39,7 @@ const Home = () => {
     <>
       <header >
         <Navbar />
-        <div className="pt-20 w-full max-w-7xl mx-auto relative ">
+        <div className="pt-20 w-full max-w-7xl mx-auto relative sm:pb-20">
           <div className="px-[5%] ">
             <h1 className="text-3xl font-bold text-center w-full uppercase">
               500g <br />
@@ -87,11 +87,11 @@ const Home = () => {
         </div>
       </header>
       <main>
-        <AllMeal />
         <SwiperIngredient />
         <Categorys/>
+        <Areas/>
       </main>
-      <footer></footer>
+      <Footer/>
     </>
   );
 };

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router";
 import Card from "../components/Card";
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 const Recherche = () => {
@@ -72,6 +73,7 @@ const Recherche = () => {
           </div>
         </div>
       </main>
+      <Footer/>
     </>
   );
 };

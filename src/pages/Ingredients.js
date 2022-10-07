@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 const Ingredients = () => {
@@ -67,6 +68,7 @@ const Ingredients = () => {
           </div>
         </section>
       </main>
+      <Footer/>
     </>
   );
 };

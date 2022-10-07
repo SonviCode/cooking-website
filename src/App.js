@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router';
 import { BrowserRouter } from "react-router-dom";
 import Category from './pages/Category';
+import Area from './pages/Area';
 import Home from './pages/Home';
 import Ingredient from './pages/Ingredient';
 import Ingredients from './pages/Ingredients';
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/meal/:slug" element={<Meal/>}/>
         <Route path="/recherche/:slug" element={<Recherche/>}/>
         <Route path="/category/:slug" element={<Category/>}/>
+        <Route path="/area/:slug" element={<Area/>}/>
         <Route path="/random" element={<Random/>}/>
       </Routes>
     </BrowserRouter>

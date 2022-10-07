@@ -1,30 +1,44 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { Link,  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useLocation } from "react-router";
 import { v4 as uuidv4 } from "uuid";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const Meal = () => {
-  const params = useParams();
-
   const location = useLocation();
-
-  console.log(location.state);
-
-  let meal = location.state
+  let meal = location.state;
 
   const [dataMeal, setDataMeal] = useState([]);
 
   useEffect(() => {
     axios
-      .get(
-        `https://www.themealdb.com/api/json/v1/1/search.php?s=${meal}`
-      )
+      .get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${meal}`)
       .then((res) => setDataMeal(res.data.meals));
   }, []);
 
+  // FOR THE STATE TO CATEGORY WITH THE GOOD INDEX
+  const [categoryList, setCategoryList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://www.themealdb.com/api/json/v1/1/categories.php")
+      .then((res) => setCategoryList(res.data.categories));
+  }, []);
+
+  let indexCategory;
+
+  if (dataMeal[0]) {
+    indexCategory = categoryList.findIndex(
+      (e) => e.strCategory === dataMeal[0].strCategory
+    );
+    if (indexCategory > -1) {
+      /* categoryList contains the element we're looking for, at index "indexCategory" */
+    }
+  }
+
+  // BOUCLE FOR STR INGREDIENT AND STR MEASURE
   let number = "";
   let measures = [];
   let ingredients = [];
@@ -56,15 +70,22 @@ const Meal = () => {
               <div className="flex-1 flex flex-row sm:flex-col gap-10">
                 <p>
                   Origine :{" "}
-                  <span className="font-bold">
+                  <Link
+                    to={`/area/${dataMeal[0] && dataMeal[0].strArea}`}
+                    className="font-bold hover:underline underline-offset-4"
+                  >
                     {dataMeal[0] && dataMeal[0].strArea}
-                  </span>
+                  </Link>
                 </p>
                 <p>
                   Catégories :{" "}
-                  <span className="font-bold">
+                  <Link
+                    to={`/category/${dataMeal[0] && dataMeal[0].strCategory}`}
+                    className="font-bold hover:underline underline-offset-4"
+                    state={dataMeal[0] && categoryList[indexCategory]}
+                  >
                     {dataMeal[0] && dataMeal[0].strCategory}
-                  </span>
+                  </Link>
                 </p>
                 <a
                   className="underline underline-offset-4 font-bold"
@@ -134,6 +155,7 @@ const Meal = () => {
           </div>
         </section>
       </main>
+      <Footer/>
     </>
   );
 };

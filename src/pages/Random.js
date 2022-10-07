@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import Footer from "../components/Footer";
 
 const Random = () => {
   const [mealRandom, setMealRandom] = useState([]);
@@ -14,58 +15,15 @@ const Random = () => {
 
   }, []);
 
+  // BOUCLE FOR STR INGREDIENT AND STR MEASURE
+  let number = "";
+  let measures = [];
+  let ingredients = [];
 
-  let ingredient = [];
-  let measure = [];
-
-  if (mealRandom[0]) {
-    ingredient = [
-      mealRandom[0].strIngredient1,
-      mealRandom[0].strIngredient2,
-      mealRandom[0].strIngredient3,
-      mealRandom[0].strIngredient4,
-      mealRandom[0].strIngredient5,
-      mealRandom[0].strIngredient6,
-      mealRandom[0].strIngredient7,
-      mealRandom[0].strIngredient8,
-      mealRandom[0].strIngredient9,
-      mealRandom[0].strIngredient10,
-      mealRandom[0].strIngredient11,
-      mealRandom[0].strIngredient12,
-      mealRandom[0].strIngredient13,
-      mealRandom[0].strIngredient14,
-      mealRandom[0].strIngredient15,
-      mealRandom[0].strIngredient16,
-      mealRandom[0].strIngredient17,
-      mealRandom[0].strIngredient18,
-      mealRandom[0].strIngredient19,
-      mealRandom[0].strIngredient20,
-    ];
-  }
-
-  if (mealRandom[0]) {
-    measure = [
-      mealRandom[0].strMeasure1,
-      mealRandom[0].strMeasure2,
-      mealRandom[0].strMeasure3,
-      mealRandom[0].strMeasure4,
-      mealRandom[0].strMeasure5,
-      mealRandom[0].strMeasure6,
-      mealRandom[0].strMeasure7,
-      mealRandom[0].strMeasure8,
-      mealRandom[0].strMeasure9,
-      mealRandom[0].strMeasure10,
-      mealRandom[0].strMeasure11,
-      mealRandom[0].strMeasure12,
-      mealRandom[0].strMeasure13,
-      mealRandom[0].strMeasure14,
-      mealRandom[0].strMeasure15,
-      mealRandom[0].strMeasure16,
-      mealRandom[0].strMeasure17,
-      mealRandom[0].strMeasure18,
-      mealRandom[0].strMeasure19,
-      mealRandom[0].strMeasure20,
-    ];
+  for (let i = 1; i < 20; i++) {
+    number = +i;
+    ingredients.push(mealRandom[0] && mealRandom[0][`strIngredient${number}`]);
+    measures.push(mealRandom[0] && mealRandom[0][`strMeasure${number}`]);
   }
 
   return (
@@ -138,7 +96,7 @@ const Random = () => {
             </h2>
             <div className="grid grid-cols-auto-fit100 gap-10 max-w-4xl mx-auto mb-20">
               {mealRandom[0] &&
-                ingredient.map(
+                ingredients.map(
                   (el) =>
                     el && (
                       <div
@@ -159,7 +117,7 @@ const Random = () => {
                             {el}
                           </p>
                           <p key={uuidv4()}>
-                            {measure[`${ingredient.indexOf(el)}`]}
+                            {measures[`${ingredients.indexOf(el)}`]}
                           </p>
                         </Link>
                       </div>
@@ -183,6 +141,7 @@ const Random = () => {
           </div>
         </section>
       </main>
+      <Footer/>
     </>
   );
 };
