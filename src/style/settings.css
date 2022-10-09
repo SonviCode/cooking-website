@@ -16,3 +16,16 @@
 .swiper-button-next::after, .swiper-button-prev::after {
   color: #000!important;
 }
+
+main {
+  flex-grow: 1;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}

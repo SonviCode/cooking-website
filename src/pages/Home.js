@@ -6,6 +6,7 @@ import Categorys from "../components/Categorys";
 import Area from "../components/Areas";
 import Areas from "../components/Areas";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [mealsData, setMealsData] = useState([]);
@@ -37,7 +38,7 @@ const Home = () => {
 
   return (
     <>
-      <header >
+      <header>
         <Navbar />
         <div className="pt-20 w-full max-w-7xl mx-auto relative sm:pb-20">
           <div className="px-[5%] ">
@@ -49,8 +50,9 @@ const Home = () => {
               Trouvez le meilleur pour vous !
             </h2>
 
-            <form
+            <div
               action={`/recherche/${inputSearch}`}
+              state={inputSearch}
               className="bg-white rounded-md shadow-md p-2.5 relative mb-10 flex justify-between max-w-[600px]"
             >
               <input
@@ -61,23 +63,29 @@ const Home = () => {
                 required
                 autoComplete="off"
               />
-              <button className=" p-2.5 rounded-md bg-vert">
+              <Link
+                to={`/recherche/${inputSearch}`}
+                className=" p-2.5 rounded-md bg-vert"
+              >
                 {researchBtn ? (
                   "Rechercher"
                 ) : (
                   <i className="fa-solid fa-magnifying-glass"></i>
                 )}
-              </button>
-            </form>
-            <form action="/random" className="flex items-center gap-5">
-              <button className="bg-vert rounded-full shadow-md p-2.5 relative w-11 shadow-md">
-              <i className="fa-solid fa-magnifying-glass"></i>
-              </button>
+              </Link>
+            </div>
+            <div className="flex items-center gap-5">
+              <Link
+                to={"/random"}
+                className="bg-vert rounded-full shadow-md p-2.5 relative w-11 shadow-md text-center"
+              >
+                <i className="fa-solid fa-magnifying-glass"></i>
+              </Link>
               <p className="sm:text-2xl">
                 <i className="fa-solid fa-arrow-left mr-2.5"></i> Recette random
                 juste ici
               </p>
-            </form>
+            </div>
           </div>
           <img
             className=" opacity-50 -z-10 absolute top-52 -right-10 w-full max-w-[600px] rounded-[50px] shadow-md"
@@ -88,10 +96,10 @@ const Home = () => {
       </header>
       <main>
         <SwiperIngredient />
-        <Categorys/>
-        <Areas/>
+        <Categorys />
+        <Areas />
       </main>
-      <Footer/>
+      <Footer />
     </>
   );
 };

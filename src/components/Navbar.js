@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [mealsData, setMealsData] = useState([]);
   const [inputSearch, setInputSearch] = useState("");
+
+  const location = useLocation();
+  console.log(location.pathname.includes("recherche"));
 
   useEffect(() => {
     axios
@@ -15,8 +18,11 @@ const Navbar = () => {
   }, [inputSearch]);
 
   return (
-    <nav className="flex px-[5%] py-2.5 justify-between items-center fixed max-w-[100vw] w-[100vw] backdrop-blur-md z-50">
-      <Link to={"/"}>
+    <nav className="flex px-[5%] py-2.5 justify-between items-center fixed max-w-[100vw] w-[100vw] backdrop-blur-md z-50 gap-20">
+      <NavLink
+        strict
+        to="/"
+      >
         <p className="flex">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -36,32 +42,54 @@ const Navbar = () => {
           </svg>
           500G
         </p>
-      </Link>
+      </NavLink>
 
-      <ul className="flex gap-10 relative items-center">
-        <li >
-          <form
-            action={`/recherche/${inputSearch}`}
-            className="bg-white rounded-md p-1 shadow-md  relative  flex justify-between max-w-[600px] "
+      <ul className="flex gap-10 relative items-center flex-1 justify-end">
+        {location.pathname.includes("recherche") ? (
+          ""
+        ) : (
+          <li className="w-full">
+            <div className="bg-white rounded-md p-1 shadow-md  relative  flex justify-between ">
+              <input
+                className=" w-full outline-none truncate"
+                type="text"
+                placeholder="Tapez le nom d'une recette (en anglais)"
+                onChange={(e) => setInputSearch(e.target.value)}
+                required
+                autoComplete="off"
+              />
+              <NavLink
+                to={`/recherche/${inputSearch}`}
+                className=" p-1 rounded-md bg-vert"
+              >
+                <i className="fa-solid fa-magnifying-glass"></i>
+              </NavLink>
+            </div>
+          </li>
+        )}
+        <li>
+          <NavLink
+            style={({ isActive }) => {
+              return isActive
+                ? { color: "rgb(132 204 22)" }
+                : { color: "black" };
+            }}
+            to={"/ingredients"}
           >
-            <input
-              className=" w-full outline-none truncate"
-              type="text"
-              placeholder="Tapez le nom d'une recette (en anglais)"
-              onChange={(e) => setInputSearch(e.target.value)}
-              required
-              autoComplete="off"
-            />
-            <button className=" p-1 rounded-md bg-vert">
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </form>
+            Ingrédients
+          </NavLink>
         </li>
         <li>
-          <Link to={"/ingredients"}>Ingrédients</Link>
-        </li>
-        <li>
-          <Link to={"/random"}>Random</Link>
+          <NavLink
+            style={({ isActive }) => {
+              return isActive
+                ? { color: "rgb(132 204 22)" }
+                : { color: "black" };
+            }}
+            to={"/random"}
+          >
+            Random
+          </NavLink>
         </li>
       </ul>
     </nav>

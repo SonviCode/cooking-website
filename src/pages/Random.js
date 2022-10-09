@@ -7,13 +7,38 @@ import Footer from "../components/Footer";
 
 const Random = () => {
   const [mealRandom, setMealRandom] = useState([]);
+  const [inputChangeState, setInputChangeState] = useState(true);
+
+  const changeState = () => {
+    setInputChangeState(!inputChangeState)
+  }
 
   useEffect(() => {
     axios
       .get("https://www.themealdb.com/api/json/v1/1/random.php")
       .then((res) => setMealRandom(res.data.meals));
 
+  }, [inputChangeState]);
+
+  // FOR THE STATE TO CATEGORY WITH THE GOOD INDEX
+  const [categoryList, setCategoryList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://www.themealdb.com/api/json/v1/1/categories.php")
+      .then((res) => setCategoryList(res.data.categories));
   }, []);
+
+  let indexCategory;
+
+  if (mealRandom[0]) {
+    indexCategory = categoryList.findIndex(
+      (e) => e.strCategory === mealRandom[0].strCategory
+    );
+    if (indexCategory > -1) {
+      /* categoryList contains the element we're looking for, at index "indexCategory" */
+    }
+  }
 
   // BOUCLE FOR STR INGREDIENT AND STR MEASURE
   let number = "";
@@ -37,18 +62,18 @@ const Random = () => {
             <h1 className="text-3xl font-bold uppercase underline underline-offset-8 mb-5">
               Voici une recette totalement au hasard !
             </h1>
-            <form className="flex gap-10 justify-center items-center">
+            <div className="flex gap-10 justify-center items-center">
               <p className="text-2xl">
-                Clique ici ou recharge la page pour en voir une nouvelle{" "}
+                Clique ici pour en une nouvelle recette {" "}
                 <i className="fa-solid fa-arrow-right ml-2.5"></i>
               </p>
               <button
-                // onClick={() => setMealRandom()}
+                onClick={changeState}
                 className="bg-vert rounded-md shadow-md p-2.5 relative w-max-min "
               >
                 Autre recette
               </button>
-            </form>
+            </div>
           </div>
           <div className="pt-20">
             <h1 className="text-4xl font-extrabold text-center gap-2.5 w-full uppercase mb-10">
@@ -61,17 +86,24 @@ const Random = () => {
                 alt={mealRandom[0] && mealRandom[0].strMeal}
               />
               <div className="flex-1 flex flex-row sm:flex-col gap-10">
-                <p>
+              <p>
                   Origine :{" "}
-                  <span className="font-bold">
+                  <Link
+                    to={`/area/${mealRandom[0] && mealRandom[0].strArea}`}
+                    className="font-bold hover:underline underline-offset-4"
+                  >
                     {mealRandom[0] && mealRandom[0].strArea}
-                  </span>
+                  </Link>
                 </p>
                 <p>
                   Catégories :{" "}
-                  <span className="font-bold">
+                  <Link
+                    to={`/category/${mealRandom[0] && mealRandom[0].strCategory}`}
+                    className="font-bold hover:underline underline-offset-4"
+                    state={mealRandom[0] && categoryList[indexCategory]}
+                  >
                     {mealRandom[0] && mealRandom[0].strCategory}
-                  </span>
+                  </Link>
                 </p>
                 <a
                   className="underline underline-offset-4 font-bold"
@@ -126,7 +158,7 @@ const Random = () => {
             </div>
           </div>
 
-          <div className="flex items-center justidy-center flex-col gap-10 mb-20">
+          <div className="flex items-center justify-center flex-col gap-10 mb-20">
             <h3 className="uppercase font-bold text-2xl ">Vidéo :</h3>
             <iframe
               className="min-w-[300px] h-[315px] w-full max-w-[600px]"
