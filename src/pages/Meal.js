@@ -67,7 +67,7 @@ const Meal = () => {
                 src={dataMeal[0] && dataMeal[0].strMealThumb}
                 alt={dataMeal[0] && dataMeal[0].strMeal}
               />
-              <div className="flex-1 flex flex-row sm:flex-col gap-10">
+              <div className="flex-1 flex flex-row flex-wrap sm:flex-col gap-10">
                 <p>
                   Origine :{" "}
                   <Link

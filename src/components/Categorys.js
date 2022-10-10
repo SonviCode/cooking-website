@@ -14,12 +14,12 @@ const Categorys = () => {
 
   return (
     <section id="category">
-      <div className=" px-[5%]">
+      <div className=" px-[5%] max-w-7xl mx-auto">
         <h2 className="underline underline-offset-4 font-bold text-3xl">
           Choisi selon la catégorie :
         </h2>
 
-        <div className="grid grid-cols-auto-fit150 gap-10 max-w-7xl mx-auto mb-20 my-10">
+        <div className="grid grid-cols-auto-fit150 gap-10  mb-20 my-10">
           {categoryList[0] &&
             categoryList.map(
               (el) =>

@@ -10,23 +10,29 @@ const Random = () => {
   const [inputChangeState, setInputChangeState] = useState(true);
 
   const changeState = () => {
-    setInputChangeState(!inputChangeState)
-  }
+    setInputChangeState(!inputChangeState);
+  };
 
   useEffect(() => {
-    axios
-      .get("https://www.themealdb.com/api/json/v1/1/random.php")
-      .then((res) => setMealRandom(res.data.meals));
+    (async () => {
+      const res = await axios.get(
+        "https://www.themealdb.com/api/json/v1/1/random.php"
+      );
 
+      setMealRandom(res.data.meals);
+    })();
   }, [inputChangeState]);
 
   // FOR THE STATE TO CATEGORY WITH THE GOOD INDEX
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://www.themealdb.com/api/json/v1/1/categories.php")
-      .then((res) => setCategoryList(res.data.categories));
+    (async () => {
+      const res = await axios.get(
+        "https://www.themealdb.com/api/json/v1/1/categories.php"
+      );
+      setCategoryList(res.data.categories);
+    })();
   }, []);
 
   let indexCategory;
@@ -64,7 +70,7 @@ const Random = () => {
             </h1>
             <div className="flex gap-10 justify-center items-center">
               <p className="text-2xl">
-                Clique ici pour en une nouvelle recette {" "}
+                Clique ici pour en une nouvelle recette{" "}
                 <i className="fa-solid fa-arrow-right ml-2.5"></i>
               </p>
               <button
@@ -85,8 +91,8 @@ const Random = () => {
                 src={mealRandom[0] && mealRandom[0].strMealThumb}
                 alt={mealRandom[0] && mealRandom[0].strMeal}
               />
-              <div className="flex-1 flex flex-row sm:flex-col gap-10">
-              <p>
+              <div className="flex-1 flex flex-row flex-wrap sm:flex-col gap-10 ">
+                <p>
                   Origine :{" "}
                   <Link
                     to={`/area/${mealRandom[0] && mealRandom[0].strArea}`}
@@ -98,7 +104,9 @@ const Random = () => {
                 <p>
                   Catégories :{" "}
                   <Link
-                    to={`/category/${mealRandom[0] && mealRandom[0].strCategory}`}
+                    to={`/category/${
+                      mealRandom[0] && mealRandom[0].strCategory
+                    }`}
                     className="font-bold hover:underline underline-offset-4"
                     state={mealRandom[0] && categoryList[indexCategory]}
                   >
@@ -173,7 +181,7 @@ const Random = () => {
           </div>
         </section>
       </main>
-      <Footer/>
+      <Footer />
     </>
   );
 };

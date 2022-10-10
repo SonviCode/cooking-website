@@ -38,9 +38,9 @@ const Home = () => {
 
   return (
     <>
-      <header>
+      <header className="h-full">
         <Navbar />
-        <div className="pt-20 w-full max-w-7xl mx-auto relative sm:pb-20">
+        <div className="pt-20 w-full h-full max-w-7xl mx-auto relative overflow-x-clip xxl:overflow-visible">
           <div className="px-[5%] ">
             <h1 className="text-3xl font-bold text-center w-full uppercase">
               500g <br />
@@ -50,11 +50,7 @@ const Home = () => {
               Trouvez le meilleur pour vous !
             </h2>
 
-            <div
-              action={`/recherche/${inputSearch}`}
-              state={inputSearch}
-              className="bg-white rounded-md shadow-md p-2.5 relative mb-10 flex justify-between max-w-[600px]"
-            >
+            <div className="bg-white rounded-md shadow-md p-2.5 relative mb-10 flex justify-between max-w-[600px]">
               <input
                 className="p-2.5 w-full outline-none"
                 type="text"
@@ -67,7 +63,7 @@ const Home = () => {
                 to={`/recherche/${inputSearch}`}
                 className=" p-2.5 rounded-md bg-vert"
               >
-                {researchBtn ? (
+                {researchBtn && window.innerWidth >= 620 ? (
                   "Rechercher"
                 ) : (
                   <i className="fa-solid fa-magnifying-glass"></i>

@@ -13,19 +13,61 @@
   transition: 0.3s ease-in-out all;
 }
 
-.swiper-button-next::after, .swiper-button-prev::after {
-  color: #000!important;
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  color: #000 !important;
 }
 
 main {
   flex-grow: 1;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 #root {
   display: flex;
   flex-direction: column;
+}
+
+.grid-area {
+  grid-template-areas:
+    "prev prev prev prev prev prev"
+    "number number number number number number "
+    "number number number number number number "
+    "next next next next next next";
+}
+.prev {
+  grid-area: prev;
+}
+.next {
+  grid-area: next;
+}
+.number {
+  grid-area: number;
+}
+@media (min-width: 640px) {
+  .grid-area {
+    grid-template-areas: none;
+  }
+  .prev {
+    grid-area: auto;
+  }
+  .next {
+    grid-area: auto;
+  }
+  .number {
+    grid-area: auto;
+  }
+}
+
+.bg-ov {
+  background-color: rgba(97, 97, 97, 0.9);
 }

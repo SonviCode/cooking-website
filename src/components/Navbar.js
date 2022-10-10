@@ -1,13 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import Overlay from "./Overlay";
 
 const Navbar = () => {
+  const location = useLocation();
   const [mealsData, setMealsData] = useState([]);
   const [inputSearch, setInputSearch] = useState("");
-
-  const location = useLocation();
-  console.log(location.pathname.includes("recherche"));
+  const [scrollHomePage, setScrollHomePage] = useState(false);
+  const [toggleOverlay, setToggleOverlay] = useState(false);
 
   useEffect(() => {
     axios
@@ -17,56 +18,70 @@ const Navbar = () => {
       .then((res) => setMealsData(res.data.meals));
   }, [inputSearch]);
 
+  // OVERLAY MENU RESPONSIV
+  const changeOverlay = () => {
+    const bodyFixed = document.querySelector("body");
+
+    if (bodyFixed.style.position === "fixed") {
+      bodyFixed.style.position = "static";
+    } else {
+      bodyFixed.style.position = "fixed";
+    }
+    setToggleOverlay(!toggleOverlay);
+  };
+
+  // NAVBAR HIDDEN DEPENDING ON THE PAGE
+  let navBarSearch;
+  let searchContent = (
+    <li className="w-full">
+      <div className="bg-white rounded-md p-1 shadow-md  relative  flex justify-between ">
+        <input
+          className=" w-full outline-none truncate"
+          type="text"
+          placeholder="Tapez le nom d'une recette (en anglais)"
+          onChange={(e) => setInputSearch(e.target.value)}
+          required
+          autoComplete="off"
+        />
+        <NavLink
+          to={`/recherche/${inputSearch}`}
+          className=" p-1 rounded-md bg-vert"
+        >
+          <i className="fa-solid fa-magnifying-glass"></i>
+        </NavLink>
+      </div>
+    </li>
+  );
+
+  if (location.pathname.includes("recherche")) {
+    navBarSearch = <></>;
+  } else if (location.pathname === "/" && !scrollHomePage) {
+    navBarSearch = <></>;
+  } else if (location.pathname === "/" && scrollHomePage) {
+    navBarSearch = searchContent;
+  } else {
+    navBarSearch = searchContent;
+  }
+
+  window.addEventListener("scroll", () => {
+    if (location.pathname === "/" && window.scrollY >= 300) {
+      setScrollHomePage(true);
+    } else if (location.pathname === "/" && window.scrollY < 300) {
+      setScrollHomePage(false);
+    }
+  });
+
   return (
-    <nav className="flex px-[5%] py-2.5 justify-between items-center fixed max-w-[100vw] w-[100vw] backdrop-blur-md z-50 gap-20">
-      <NavLink
-        strict
-        to="/"
-      >
+    <nav className="flex px-[5%] py-2.5 justify-between items-center fixed max-w-[100vw] w-[100vw] backdrop-blur-md z-50 gap-20 min-h-[60px]">
+      <NavLink strict to="/">
         <p className="flex">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-chef-hat"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M12 3c1.918 0 3.52 1.35 3.91 3.151a4 4 0 0 1 2.09 7.723l0 7.126h-12v-7.126a4.002 4.002 0 1 1 2.092 -7.723a3.999 3.999 0 0 1 3.908 -3.151z"></path>
-            <path d="M6.161 17.009l11.839 -.009"></path>
-          </svg>
-          500G
+          <img src="../assets/logo.svg" alt="logo 500g" />
+          500g
         </p>
       </NavLink>
 
-      <ul className="flex gap-10 relative items-center flex-1 justify-end">
-        {location.pathname.includes("recherche") ? (
-          ""
-        ) : (
-          <li className="w-full">
-            <div className="bg-white rounded-md p-1 shadow-md  relative  flex justify-between ">
-              <input
-                className=" w-full outline-none truncate"
-                type="text"
-                placeholder="Tapez le nom d'une recette (en anglais)"
-                onChange={(e) => setInputSearch(e.target.value)}
-                required
-                autoComplete="off"
-              />
-              <NavLink
-                to={`/recherche/${inputSearch}`}
-                className=" p-1 rounded-md bg-vert"
-              >
-                <i className="fa-solid fa-magnifying-glass"></i>
-              </NavLink>
-            </div>
-          </li>
-        )}
+      <ul className="flex gap-10 relative items-center flex-1 justify-end hidden sm:flex">
+        {navBarSearch}
         <li>
           <NavLink
             style={({ isActive }) => {
@@ -92,6 +107,17 @@ const Navbar = () => {
           </NavLink>
         </li>
       </ul>
+
+      <button className="sm:hidden absolute right-[10%] top-3">
+        <img
+          className="w-8 h-8 object-cover "
+          src="../assets/menu.png"
+          alt="icone menu"
+          onClick={changeOverlay}
+        />
+      </button>
+
+      <Overlay changeOverlay={changeOverlay} toggleOverlay={toggleOverlay} />
     </nav>
   );
 };

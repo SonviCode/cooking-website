@@ -14,12 +14,12 @@ const Areas = () => {
 
     return (
         <section id="area">
-      <div className=" px-[5%]">
+      <div className=" px-[5%] max-w-7xl mx-auto ">
         <h2 className="underline underline-offset-4 font-bold text-3xl">
           Choisi selon l'origine :
         </h2>
 
-        <div className="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto mb-20 my-10">
+        <div className="flex flex-wrap justify-center gap-8 mb-20 my-10">
           {areaList[0] &&
             areaList.map(
               (el) =>
@@ -34,13 +34,6 @@ const Areas = () => {
                       className=" p-5 text-center hover:bg-gray-100 ease-in duration-300 shadow-md hover:shadow-lg"
                       key={uuidv4()}
                     >
-                      {/* <div>
-                        <img
-                          className="duration-300"
-                          src={el.strareaThumb}
-                          alt={el.strarea}
-                        />
-                      </div> */}
                       <p key={uuidv4()} className="font-bold w-full">
                         {el.strArea}
                       </p>

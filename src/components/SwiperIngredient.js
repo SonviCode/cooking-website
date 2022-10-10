@@ -10,6 +10,7 @@ import { Navigation, A11y } from "swiper";
 
 const SwiperIngredient = () => {
   const [ingredientList, setIngredientList] = useState([]);
+  // const [numberRandom, setNumberRandom] = useState(40)
 
   useEffect(() => {
     axios
@@ -17,7 +18,10 @@ const SwiperIngredient = () => {
       .then((res) => setIngredientList(res.data.meals));
   }, []);
 
-  let numberRandom = Math.floor(Math.random() * 559);
+  
+  const numberRandom = Math.floor(Math.random() * ingredientList.length);
+
+  //  setNumberRandom(number)
 
   return (
     <section>
@@ -32,11 +36,11 @@ const SwiperIngredient = () => {
             loop={true}
             navigation
             breakpoints={{
-              640: {
+              350: {
                 slidesPerView: 2,
                 spaceBetween: 20,
               },
-              1024: {
+              700: {
                 slidesPerView: 3,
                 spaceBetween: 40,
               },
@@ -47,7 +51,7 @@ const SwiperIngredient = () => {
             }}
           >
             {ingredientList &&
-              ingredientList.slice(numberRandom, numberRandom + 40).map(
+              ingredientList.slice(numberRandom - 40, numberRandom).map(
                 (el) =>
                   el && (
                     <SwiperSlide
@@ -72,13 +76,13 @@ const SwiperIngredient = () => {
                             key={uuidv4()}
                           />
 
-                          <p
-                            key={uuidv4()}
-                            className="font-bold text-2xl"
-                          >
+                          <p key={uuidv4()} className="font-bold text-2xl ">
                             {el.strIngredient}
                           </p>
-                          <p key={uuidv4()} className="truncate w-[150px] text-center">
+                          <p
+                            key={uuidv4()}
+                            className="truncate w-[150px] text-center"
+                          >
                             {el.strDescription}
                           </p>
                         </Link>
@@ -94,7 +98,7 @@ const SwiperIngredient = () => {
           </h2>
           <Link
             to="/ingredients"
-            className="p-2.5 rounded-md border-2 border-vert bg-vert hover:bg-white ease duration-200"
+            className="p-2.5 rounded-md border-2 border-vert bg-vert hover:bg-white ease duration-200 text-center"
           >
             Clique ici !
           </Link>
