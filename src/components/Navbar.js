@@ -43,12 +43,18 @@ const Navbar = () => {
           required
           autoComplete="off"
         />
-        <NavLink
-          to={`/recherche/${inputSearch}`}
-          className=" p-1 rounded-md bg-vert"
-        >
-          <i className="fa-solid fa-magnifying-glass"></i>
-        </NavLink>
+        {inputSearch.length > 0 ? (
+          <NavLink
+            to={`/recherche/${inputSearch}`}
+            className=" p-1 rounded-md bg-vert"
+          >
+            <i className="fa-solid fa-magnifying-glass"></i>
+          </NavLink>
+        ) : (
+          <button className=" p-1 rounded-md bg-gray-100">
+            <i className="fa-solid fa-magnifying-glass"></i>
+          </button>
+        )}
       </div>
     </li>
   );
@@ -117,7 +123,7 @@ const Navbar = () => {
         />
       </button>
 
-      <Overlay changeOverlay={changeOverlay} toggleOverlay={toggleOverlay} />
+      <Overlay changeOverlay={changeOverlay} toggleOverlay={toggleOverlay} inputSearch={inputSearch} setInputSearch={setInputSearch}/>
     </nav>
   );
 };

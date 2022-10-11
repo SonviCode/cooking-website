@@ -15,11 +15,11 @@ const Areas = () => {
     return (
         <section id="area">
       <div className=" px-[5%] max-w-7xl mx-auto ">
-        <h2 className="underline underline-offset-4 font-bold text-3xl">
+        <h2 className="underline underline-offset-4 font-bold text-3xl relative">
           Choisi selon l'origine :
         </h2>
 
-        <div className="flex flex-wrap justify-center gap-8 mb-20 my-10">
+        <div className="flex flex-wrap justify-center gap-8 mb-20 my-10  relative">
           {areaList[0] &&
             areaList.map(
               (el) =>
@@ -41,6 +41,7 @@ const Areas = () => {
                   </Link>
                 )
             )}
+            {/* <button className="absolute bottom-0 left-[50%] translate-x-[-50%] bg-vert">En voir +</button> */}
         </div>
       </div>
     </section>

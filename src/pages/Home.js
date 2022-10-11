@@ -36,6 +36,7 @@ const Home = () => {
     }
   });
 
+
   return (
     <>
       <header className="h-full">
@@ -59,16 +60,26 @@ const Home = () => {
                 required
                 autoComplete="off"
               />
-              <Link
-                to={`/recherche/${inputSearch}`}
-                className=" p-2.5 rounded-md bg-vert"
-              >
-                {researchBtn && window.innerWidth >= 620 ? (
-                  "Rechercher"
-                ) : (
-                  <i className="fa-solid fa-magnifying-glass"></i>
-                )}
-              </Link>
+              {inputSearch.length > 0 ? (
+                <Link
+                  to={`/recherche/${inputSearch}`}
+                  className=" p-2.5 rounded-md bg-vert"
+                >
+                  {researchBtn && window.innerWidth >= 620 ? (
+                    "Rechercher"
+                  ) : (
+                    <i className="fa-solid fa-magnifying-glass"></i>
+                  )}
+                </Link>
+              ) : (
+                <button className=" p-2.5 rounded-md bg-gray-100">
+                  {researchBtn && window.innerWidth >= 620 ? (
+                    "Rechercher"
+                  ) : (
+                    <i className="fa-solid fa-magnifying-glass"></i>
+                  )}
+                </button>
+              )}
             </div>
             <div className="flex items-center gap-5">
               <Link

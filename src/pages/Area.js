@@ -29,7 +29,7 @@ const Area = () => {
       <header>
         <Navbar />
       </header>
-      <section>
+      <main>
         <div className="pt-20 px-[5%]">
           <h1 className="text-5xl font-bold text-center w-full uppercase mb-10 tracking-[3px]">
             {params.slug}
@@ -69,7 +69,7 @@ const Area = () => {
             </div>
           </div>
         </div>
-      </section>
+      </main>
       <Footer/>
     </>
     );

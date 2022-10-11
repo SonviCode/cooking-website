@@ -42,9 +42,9 @@ const Category = () => {
             />
             <div className="h-[190px] overflow-hidden text-center">
               <p className="">{category.strCategoryDescription}</p>
-              <button className="underline underline-offset-4 p-2">
+              {/* <button className="underline underline-offset-4 p-2">
                 En savoir +
-              </button>
+              </button> */}
             </div>
           </div>
           <div>

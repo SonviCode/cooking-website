@@ -21,14 +21,12 @@ const SwiperIngredient = () => {
   
   const numberRandom = Math.floor(Math.random() * ingredientList.length);
 
-  //  setNumberRandom(number)
-
   return (
     <section>
       <div className="px-[5%] pt-20 max-w-7xl mx-auto mb-20">
         <h2 className="text-xl uppercase">Quelques ingrédients au hasard :</h2>
 
-        <div className="flex mb-20 ">
+        <div className="flex mb-10 md:mb-20 ">
           <Swiper
             modules={[Navigation, A11y]}
             spaceBetween={30}
@@ -92,7 +90,7 @@ const SwiperIngredient = () => {
               )}
           </Swiper>
         </div>
-        <div className="flex items-center gap-5">
+        <div className="flex flex-col md:flex-row items-center gap-5">
           <h2 className="text-xl font-extrabold uppercase">
             Pour voir tout les ingrédients disponibles :
           </h2>
@@ -108,4 +106,4 @@ const SwiperIngredient = () => {
   );
 };
 
-export default SwiperIngredient;
+export default React.memo(SwiperIngredient);
