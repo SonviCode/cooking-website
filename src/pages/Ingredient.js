@@ -54,7 +54,7 @@ const Ingredient = () => {
                       state={el.strMeal}
                       key={uuidv4()}
                     >
-                      <div id="container-card-out">
+                      <div id="container-card-out max-w-[300px]">
                         <div className="max-w-[300px] overflow-hidden ">
                           <img
                             className=" duration-300 "
