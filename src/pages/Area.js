@@ -30,7 +30,7 @@ const Area = () => {
         <Navbar />
       </header>
       <main>
-        <div className="pt-20 px-[5%]">
+        <div className="pt-20 px-[5%] max-w-7xl mx-auto">
           <h1 className="text-5xl font-bold text-center w-full uppercase mb-10 tracking-[3px]">
             {params.slug}
           </h1>

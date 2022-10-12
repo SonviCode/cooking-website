@@ -19,7 +19,7 @@ const Areas = () => {
           Choisi selon l'origine :
         </h2>
 
-        <div className="flex flex-wrap justify-center gap-8 mb-20 my-10  relative">
+        <div className="grid grid-cols-auto-fit150 gap-8 mb-20 my-10  relative">
           {areaList[0] &&
             areaList.map(
               (el) =>

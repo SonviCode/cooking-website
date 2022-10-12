@@ -78,52 +78,59 @@ const Navbar = () => {
   });
 
   return (
-    <nav className="flex px-[5%] py-2.5 justify-between items-center fixed max-w-[100vw] w-[100vw] backdrop-blur-md z-50 gap-20 min-h-[60px]">
-      <NavLink strict to="/">
-        <p className="flex">
-          <img src="../assets/logo.svg" alt="logo 500g" />
-          500g
-        </p>
-      </NavLink>
+    <nav className="fixed w-[100vw] backdrop-blur-md z-50 px-[5%]">
+      <div className="max-w-7xl mx-auto flex py-2.5 justify-between min-h-[60px] items-center gap-20">
+        <NavLink strict to="/">
+          <p className="flex">
+            <img src="../assets/logo.svg" alt="logo 500g" />
+            500g
+          </p>
+        </NavLink>
 
-      <ul className="flex gap-10 relative items-center flex-1 justify-end hidden sm:flex">
-        {navBarSearch}
-        <li>
-          <NavLink
-            style={({ isActive }) => {
-              return isActive
-                ? { color: "rgb(132 204 22)" }
-                : { color: "black" };
-            }}
-            to={"/ingredients"}
-          >
-            Ingrédients
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            style={({ isActive }) => {
-              return isActive
-                ? { color: "rgb(132 204 22)" }
-                : { color: "black" };
-            }}
-            to={"/random"}
-          >
-            Random
-          </NavLink>
-        </li>
-      </ul>
+        <ul className="flex gap-10 relative items-center flex-1 justify-end hidden sm:flex ">
+          {navBarSearch}
+          <li>
+            <NavLink
+              style={({ isActive }) => {
+                return isActive
+                  ? { color: "rgb(132 204 22)" }
+                  : { color: "black" };
+              }}
+              to={"/ingredients"}
+            >
+              Ingrédients
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              style={({ isActive }) => {
+                return isActive
+                  ? { color: "rgb(132 204 22)" }
+                  : { color: "black" };
+              }}
+              to={"/random"}
+            >
+              Random
+            </NavLink>
+          </li>
+        </ul>
 
-      <button className="sm:hidden absolute right-[10%] top-3">
-        <img
-          className="w-8 h-8 object-cover "
-          src="../assets/menu.png"
-          alt="icone menu"
-          onClick={changeOverlay}
-        />
-      </button>
+        <button className="sm:hidden absolute right-[10%] top-3">
+          <img
+            className="w-8 h-8 object-cover "
+            src="../assets/menu.png"
+            alt="icone menu"
+            onClick={changeOverlay}
+          />
+        </button>
+      </div>
 
-      <Overlay changeOverlay={changeOverlay} toggleOverlay={toggleOverlay} inputSearch={inputSearch} setInputSearch={setInputSearch}/>
+      <Overlay
+        changeOverlay={changeOverlay}
+        toggleOverlay={toggleOverlay}
+        inputSearch={inputSearch}
+        setInputSearch={setInputSearch}
+      />
     </nav>
   );
 };

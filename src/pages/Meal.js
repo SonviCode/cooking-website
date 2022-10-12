@@ -55,7 +55,7 @@ const Meal = () => {
         <Navbar />
       </header>
       <main>
-        <section className="px-[5%]">
+        <section className="px-[5%] max-w-7xl mx-auto">
           <div className="pt-20">
             <h1 className="text-4xl font-extrabold text-center gap-2.5 w-full uppercase mb-10">
               {dataMeal[0] && dataMeal[0].strMeal}

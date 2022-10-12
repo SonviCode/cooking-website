@@ -27,7 +27,7 @@ const Recherche = () => {
         <Navbar />
       </header>
       <main>
-        <div className="pt-20 px-[5%] ">
+        <div className="pt-20 px-[5%] max-w-7xl mx-auto">
           <div className="flex justify-center items-center gap-x-20 mb-20 flex-wrap">
             <h1 className="text-4xl">500G </h1>
             <div className="bg-white rounded-md shadow-md p-2.5 relative  flex justify-between max-w-[600px] w-full">

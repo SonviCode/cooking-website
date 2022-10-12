@@ -63,7 +63,7 @@ const Random = () => {
         <Navbar />
       </header>
       <main>
-        <section className="px-[5%]">
+        <section className="px-[5%] max-w-7xl mx-auto">
           <div className="pt-32">
             <h1 className="text-3xl font-bold uppercase underline underline-offset-8 mb-5">
               Voici une recette totalement au hasard !

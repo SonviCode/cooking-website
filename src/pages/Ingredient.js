@@ -19,14 +19,13 @@ const Ingredient = () => {
       .then((res) => setListMeal(res.data.meals));
   }, []);
 
-
   return (
     <>
       <header>
         <Navbar />
       </header>
       <main>
-        <section>
+        <section className="max-w-7xl mx-auto">
           <div className="pt-20 flex flex-col lg:flex-row items-center justify-center mb-20 px-[5%]">
             <h1 className="text-5xl font-bold uppercase underline underline-offset-[10px] leading-tight lg:text-right">
               {ingredient}
@@ -54,8 +53,8 @@ const Ingredient = () => {
                       state={el.strMeal}
                       key={uuidv4()}
                     >
-                      <div id="container-card-out max-w-[300px]">
-                        <div className="max-w-[300px] overflow-hidden ">
+                      <div id="container-card-out max-w-[300px] ">
+                        <div className="max-w-[300px] overflow-hidden">
                           <img
                             className=" duration-300 "
                             src={el.strMealThumb}
@@ -63,7 +62,7 @@ const Ingredient = () => {
                             key={uuidv4()}
                           />
                         </div>
-                        <p className="text-xl" key={uuidv4()}>
+                        <p className="text-xl max-w-[300px]" key={uuidv4()}>
                           {el.strMeal}
                         </p>
                       </div>
@@ -88,7 +87,7 @@ const Ingredient = () => {
           </div>
         </section>
       </main>
-      <Footer/>
+      <Footer />
     </>
   );
 };

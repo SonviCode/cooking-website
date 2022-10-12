@@ -2,8 +2,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer>
-      <div className="px-[5%] py-5 flex justify-between bg-gray-100">
+    <footer className="bg-gray-100 px-[5%]">
+      <div className="py-5 flex justify-between max-w-7xl mx-auto">
         <div>
           <p>Code by SonviCode</p>
           <p>
